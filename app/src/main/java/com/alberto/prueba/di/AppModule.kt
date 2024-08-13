@@ -2,10 +2,14 @@ package com.alberto.prueba.di
 
 import android.content.Context
 import androidx.room.Room
+import com.alberto.prueba.data.LocationRepositoryImpl
 import com.alberto.prueba.data.NotificationRepositoryImpl
 import com.alberto.prueba.data.local.NotificationDao
 import com.alberto.prueba.data.local.NotificationDatabase
+import com.alberto.prueba.domain.LocationRepository
 import com.alberto.prueba.domain.NotificationRepository
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,5 +37,21 @@ class AppModule {
     @Singleton
     fun provideNotificationRepository(notificationDao: NotificationDao): NotificationRepository {
         return NotificationRepositoryImpl(notificationDao)
+
     }
+
+    @Provides
+    @Singleton
+    fun provideLocationRepository(
+        @ApplicationContext context: Context,
+        fusedLocationProviderClient: FusedLocationProviderClient
+    ): LocationRepository {
+        return LocationRepositoryImpl(context, fusedLocationProviderClient)
+    }
+    @Provides
+    @Singleton
+    fun provideFusedLocationProviderClient(@ApplicationContext context: Context): FusedLocationProviderClient {
+        return LocationServices.getFusedLocationProviderClient(context)
+    }
+
 }

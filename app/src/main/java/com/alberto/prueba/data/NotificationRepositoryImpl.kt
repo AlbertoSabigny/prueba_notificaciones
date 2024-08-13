@@ -13,9 +13,9 @@ class NotificationRepositoryImpl @Inject constructor(
     private val notificationDao: NotificationDao
 ) : NotificationRepository {
     override suspend fun saveNotification(notification: NotificationEntity) {
-        Log.d(TAG, "Insertando notificación en la base de datos: $notification")
+        Log.d(TAG, "Insertando notificación  $notification")
         notificationDao.insertNotification(notification)
-        Log.d(TAG, "Notificación insertada exitosamente")
+        Log.d(TAG, "Notificación insertada")
     }
 
     override suspend fun getAllNotifications(): Flow<List<NotificationEntity>> {

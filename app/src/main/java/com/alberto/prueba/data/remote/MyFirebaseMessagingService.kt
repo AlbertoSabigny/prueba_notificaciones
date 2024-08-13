@@ -31,15 +31,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.d(TAG, "onMessageReceived called")
-        Log.d(TAG, "From: ${remoteMessage.from}")
+        Log.d(TAG, "onMessageReceived ")
+
 
         remoteMessage.notification?.let {
-            Log.d(TAG, "Message Notification Body: ${it.body}")
+            Log.d(TAG, "Message Notification : ${it.body}")
         }
 
         remoteMessage.data.isNotEmpty().let {
-            Log.d(TAG, "Message data payload: ${remoteMessage.data}")
+            Log.d(TAG, "Message: ${remoteMessage.data}")
         }
         Log.d(TAG, "Mensaje recibido: ${remoteMessage.notification}")
 
@@ -52,12 +52,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         Log.d(TAG, "Creada NotificationEntity: $notificationEntity")
 
-        // Guardar la notificación usando el caso de uso
+
         serviceScope.launch {
             try {
                 Log.d(TAG, "Intentando guardar la notificación")
                 saveNotificationUseCase(notificationEntity)
-                Log.d(TAG, "Notificación guardada exitosamente")
+                Log.d(TAG, "Notificación guardada ")
             } catch (e: Exception) {
                 Log.e(TAG, "Error al guardar la notificación", e)
             }
@@ -66,7 +66,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         Log.d(TAG, "Nuevo token de FCM: $token")
-        // Aquí puedes enviar el token a tu servidor si es necesario
+
     }
 
     companion object {
